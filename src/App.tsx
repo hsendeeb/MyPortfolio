@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react'
 import AnimatedCardStack from '@/components/ui/animate-card-animation'
 import { DottedSurface } from '@/components/ui/dotted-surface'
 import { FallingPattern } from '@/components/ui/falling-pattern'
 import { HandWrittenTitle } from '@/components/ui/hand-writing-text'
+import { ParticleTextEffect } from '@/components/ui/particle-text-effect'
 import { SparklesText } from '@/components/ui/sparkles-text'
 import { TextRotate } from '@/components/ui/text-rotate'
 import { 
@@ -52,13 +53,6 @@ const Linkedin = ({ size = 24, className = "" }) => (
   </svg>
 )
 
-const roles = [
-  "Wordpress Expert",
-  "Shopify Developer",
-  "Custom Web Architect",
-  "Full-stack Engineer"
-]
-
 const services = [
   {
     title: "WordPress Development",
@@ -85,7 +79,7 @@ const projects = [
     id: 1,
     title: "Tojjar",
     category: "Custom web app",
-    image: "/logoTojjar.png",
+    image: "public/logoTojjar.png",
     description: "A premium marketplace for cars trading focused on speed, clarity, and user experience.",
     link: "https://github.com/hsendeeb/tojjar",
   },
@@ -93,7 +87,7 @@ const projects = [
     id: 2,
     title: "AnsarEats",
     category: "Custom web app",
-    image: "/ansareats-logo-v2.png",
+    image: "public/ansareats-logo-v2.png",
     description: "A delivery application for food ordering and management.",
     link: "https://github.com/hsendeeb/AnsarEats",
   },
@@ -116,16 +110,8 @@ const projects = [
 ]
 
 export default function App() {
-  const [roleIndex, setRoleIndex] = useState(0)
   const [isDownloadHovered, setIsDownloadHovered] = useState(false)
   const [downloadHoverCycle, setDownloadHoverCycle] = useState(0)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % roles.length)
-    }, 3000)
-    return () => clearInterval(timer)
-  }, [])
 
   return (
     <div className="min-h-screen bg-background text-text font-sans">
@@ -177,22 +163,22 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-7xl font-heading font-extrabold mb-6 tracking-tight"
           >
-            Hi, I'm <span className="text-primary">Your Name</span>
+            Hi, I'm <span className="text-primary">Hsen deeb</span>
           </motion.h1>
           
-          <div className="mb-10 flex h-12 items-center justify-center overflow-hidden md:h-16">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={roles[roleIndex]}
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -40, opacity: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="text-2xl md:text-4xl text-secondary font-medium"
-              >
-                {roles[roleIndex]}
-              </motion.span>
-            </AnimatePresence>
+          <div className="mb-10">
+            <ParticleTextEffect
+              words={[
+                "WordPress Expert",
+                "Shopify Developer",
+                "Web Architect",
+                "Full-stack Engineer",
+              ]}
+              width={1000}
+              height={180}
+              className="mx-auto"
+              canvasClassName="opacity-95"
+            />
           </div>
 
           <motion.div 
@@ -296,8 +282,8 @@ export default function App() {
 
       {/* Projects Section */}
       <section id="projects" className="relative isolate overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
-        <DottedSurface className="opacity-60" />
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.08),transparent_35%),linear-gradient(to_bottom,rgba(250,250,250,0.9),rgba(250,250,250,0.98))]" />
+        <DottedSurface className="z-0 opacity-100" />
+        <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.05),transparent_32%),linear-gradient(to_bottom,rgba(250,250,250,0.38),rgba(250,250,250,0.52))]" />
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="mb-12 flex flex-col items-center gap-6 text-center">
             <div className="mx-auto w-full max-w-5xl">
