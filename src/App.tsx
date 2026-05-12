@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence, LayoutGroup } from 'motion/react'
+import AnimatedCardStack from '@/components/ui/animate-card-animation'
 import { FallingPattern } from '@/components/ui/falling-pattern'
+import { HandWrittenTitle } from '@/components/ui/hand-writing-text'
+import { SparklesText } from '@/components/ui/sparkles-text'
+import { TextRotate } from '@/components/ui/text-rotate'
 import { 
   Globe, 
   ShoppingBag, 
   Code2, 
   Download, 
   Mail, 
-  ExternalLink,
-  ChevronRight
 } from 'lucide-react'
 
 // Custom Brand Icons (since lucide-react removed them)
@@ -78,14 +80,44 @@ const services = [
 ]
 
 const projects = [
-  { id: 1, title: "Project Alpha", category: "Wordpress", image: "https://images.unsplash.com/photo-1551033406-611cf9a28f67?auto=format&fit=crop&q=80&w=800" },
-  { id: 2, title: "Project Beta", category: "Shopify", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" },
-  { id: 3, title: "Project Gamma", category: "Custom", image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800" },
-  { id: 4, title: "Project Delta", category: "Wordpress", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" },
+  {
+    id: 1,
+    title: "Tojjar",
+    category: "Custom web app",
+    image: "/logoTojjar.png",
+    description: "A premium marketplace for cars trading focused on speed, clarity, and user experience.",
+    link: "https://https://github.com/hsendeeb/tojjar",
+  },
+  {
+    id: 2,
+    title: "AnsarEats",
+    category: "Custom web app",
+    image: "/ansareats-logo-v2.png",
+    description: "A delivery application for food ordering and management.",
+    link: "https://github.com/hsendeeb/AnsarEats",
+  },
+  {
+    id: 3,
+    title: "Project Gamma",
+    category: "Custom App",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800",
+    description: "A bespoke web application built for performance, flexibility, and polished client workflows.",
+    link: "https://example.com/project-gamma",
+  },
+  {
+    id: 4,
+    title: "Project Delta",
+    category: "WordPress",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    description: "A content-rich WordPress build designed around SEO structure and editorial ease of use.",
+    link: "https://example.com/project-delta",
+  },
 ]
 
 export default function App() {
   const [roleIndex, setRoleIndex] = useState(0)
+  const [isDownloadHovered, setIsDownloadHovered] = useState(false)
+  const [downloadHoverCycle, setDownloadHoverCycle] = useState(0)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -166,11 +198,43 @@ export default function App() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-10"
           >
-            <button className="btn-primary flex items-center gap-2 group">
-              Download CV <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
-            </button>
+            <div
+              className="group relative inline-flex"
+              onMouseEnter={() => {
+                setDownloadHoverCycle((value) => value + 1)
+                setIsDownloadHovered(true)
+              }}
+              onMouseLeave={() => setIsDownloadHovered(false)}
+            >
+              <AnimatePresence>
+                {isDownloadHovered && (
+                  <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 z-0">
+                    <HandWrittenTitle
+                      key={downloadHoverCycle}
+                      hideText
+                      className="h-full max-w-none py-0"
+                      pathClassName="text-black"
+                      strokeWidth={16}
+                      pathData="M 1060 225 C 1130 345, 1055 485, 800 540 C 530 598, 215 560, 105 392 C 52 286, 103 132, 322 72 C 585 6, 968 58, 1060 225"
+                    />
+                  </div>
+                )}
+              </AnimatePresence>
+              <a
+                href="/husseindeebCV.docx"
+                download="husseindeebCV.docx"
+                className="btn-primary relative z-10 flex items-center gap-2 group-hover:shadow-lg"
+                onFocus={() => {
+                  setDownloadHoverCycle((value) => value + 1)
+                  setIsDownloadHovered(true)
+                }}
+                onBlur={() => setIsDownloadHovered(false)}
+              >
+                Download CV <Download size={18} className="transition-transform group-hover:translate-y-0.5" />
+              </a>
+            </div>
             <button className="btn-secondary">
               View Projects
             </button>
@@ -181,9 +245,32 @@ export default function App() {
       {/* Services Section */}
       <section id="services" className="py-20 bg-gray-50 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Services I Offer</h2>
-            <p className="text-secondary max-w-2xl mx-auto">I help businesses grow by building premium digital experiences that convert and engage.</p>
+          <div className="mx-auto mb-16 max-w-4xl text-center">
+            <LayoutGroup>
+              <motion.h2
+                className="mb-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-3xl font-heading font-bold tracking-tight md:text-4xl"
+                layout
+              >
+                <span>I build</span>
+                <TextRotate
+                  texts={[
+                    'WordPress storefronts',
+                    'Shopify storefronts',
+                    'custom web apps',
+                  ]}
+                  mainClassName="justify-center overflow-hidden rounded-full bg-primary px-4 py-1 text-white shadow-sm"
+                  splitLevelClassName="overflow-hidden pb-1"
+                  staggerFrom="last"
+                  staggerDuration={0.015}
+                  initial={{ y: '100%' }}
+                  animate={{ y: 0 }}
+                  exit={{ y: '-120%' }}
+                  transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+                  rotationInterval={2200}
+                />
+              </motion.h2>
+            </LayoutGroup>
+            <p className="text-secondary text-base leading-relaxed md:text-lg">I help businesses grow by building premium digital experiences that convert and engage.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((service, index) => (
@@ -209,39 +296,19 @@ export default function App() {
       {/* Projects Section */}
       <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Featured Work</h2>
-              <p className="text-secondary max-w-md">A selection of my recent projects ranging from e-commerce to custom web applications.</p>
+          <div className="mb-12 flex flex-col items-center gap-6 text-center">
+            <div className="mx-auto w-full max-w-5xl">
+              <SparklesText
+                text="Featured Work"
+                className="mb-4 w-full text-center text-4xl font-heading font-bold tracking-tight md:text-5xl"
+                sparklesCount={12}
+                colors={{ first: "#2563EB", second: "#18181B" }}
+              />
+             
             </div>
-            <a href="#" className="flex items-center gap-2 text-cta font-semibold hover:gap-3 transition-all">
-              View all projects <ChevronRight size={20} />
-            </a>
+            
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl aspect-[16/9] cursor-pointer shadow-lg"
-              >
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-8">
-                  <span className="text-cta text-sm font-bold mb-2 uppercase tracking-widest">{project.category}</span>
-                  <h3 className="text-white text-2xl font-bold flex items-center gap-2">
-                    {project.title} <ExternalLink size={20} />
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <AnimatedCardStack projects={projects} />
         </div>
       </section>
 
@@ -249,7 +316,7 @@ export default function App() {
       <section id="contact" className="py-20 bg-primary text-white px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8">Ready to start your project?</h2>
-          <p className="text-gray-400 mb-10 max-w-xl mx-auto text-lg">
+          <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-gray-400">
             Whether you need a full-scale Shopify store or a custom web app, I'm here to help you build it.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
