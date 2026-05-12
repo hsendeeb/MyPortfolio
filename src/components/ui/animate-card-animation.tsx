@@ -55,14 +55,14 @@ function ProjectCardContent({ project }: { project: AnimatedProjectCardItem }) {
       </div>
       <div className="flex w-full items-center justify-between gap-3 px-3 pb-6">
         <div className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate font-medium text-foreground">{project.title}</span>
+          <span className="truncate font-medium text-primary">{project.title}</span>
           <span className="line-clamp-2 text-sm text-secondary">{project.description}</span>
         </div>
         <a
           href={project.link}
           target="_blank"
           rel="noreferrer"
-          className="flex h-10 shrink-0 select-none items-center gap-1 rounded-full bg-foreground pl-4 pr-3 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
+          className="flex h-10 shrink-0 select-none items-center gap-1 rounded-full bg-primary pl-4 pr-3 text-sm font-medium text-white transition-all hover:scale-[1.02] hover:bg-cta"
         >
           Visit
           <ExternalLink size={15} />
@@ -175,7 +175,7 @@ export default function AnimatedCardStack({ projects }: AnimatedCardStackProps) 
       <div className="relative z-10 -mt-px flex w-full items-center justify-center border-t border-black/10 py-4">
         <button
           onClick={handleAnimate}
-          className="flex h-10 cursor-pointer select-none items-center justify-center gap-1 overflow-hidden rounded-lg border border-black/10 bg-background px-4 font-medium text-primary transition-all hover:bg-secondary/20 active:scale-[0.98]"
+          className="flex h-10 cursor-pointer select-none items-center justify-center gap-1 overflow-hidden rounded-lg border border-black/10 bg-white px-4 font-medium text-primary transition-all hover:bg-secondary/20 active:scale-[0.98]"
         >
           Next Project
         </button>

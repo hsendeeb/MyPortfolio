@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react'
 import AnimatedCardStack from '@/components/ui/animate-card-animation'
+import { DottedSurface } from '@/components/ui/dotted-surface'
 import { FallingPattern } from '@/components/ui/falling-pattern'
 import { HandWrittenTitle } from '@/components/ui/hand-writing-text'
 import { SparklesText } from '@/components/ui/sparkles-text'
@@ -86,7 +87,7 @@ const projects = [
     category: "Custom web app",
     image: "/logoTojjar.png",
     description: "A premium marketplace for cars trading focused on speed, clarity, and user experience.",
-    link: "https://https://github.com/hsendeeb/tojjar",
+    link: "https://github.com/hsendeeb/tojjar",
   },
   {
     id: 2,
@@ -294,8 +295,10 @@ export default function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section id="projects" className="relative isolate overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
+        <DottedSurface className="opacity-60" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.08),transparent_35%),linear-gradient(to_bottom,rgba(250,250,250,0.9),rgba(250,250,250,0.98))]" />
+        <div className="relative z-10 max-w-7xl mx-auto">
           <div className="mb-12 flex flex-col items-center gap-6 text-center">
             <div className="mx-auto w-full max-w-5xl">
               <SparklesText
@@ -334,7 +337,7 @@ export default function App() {
       {/* Footer */}
       <footer className="py-10 border-t border-gray-200 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <span className="text-secondary text-sm">© 2026 Your Name. All rights reserved.</span>
+          <span className="text-secondary text-sm">© 2026 Hsen deeb. All rights reserved.</span>
           <div className="flex space-x-6 text-sm text-secondary">
             <a href="#" className="hover:text-cta transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-cta transition-colors">Terms of Service</a>
