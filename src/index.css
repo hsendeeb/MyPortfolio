@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-heading: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: #18181B;
+  --color-secondary: #3F3F46;
+  --color-cta: #2563EB;
+  --color-background: #FAFAFA;
+  --color-text: #09090B;
+  
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+  --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+}
+
+:root {
+  --background: #fafafa;
+  --primary: #18181b;
+  --color-background: #FAFAFA;
+  --color-text: #09090B;
+}
+
+.dark {
+  --background: oklch(0 0 0);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Custom Utilities based on Design System */
+@layer components {
+  .btn-primary {
+    @apply bg-cta text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 cursor-pointer hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent text-primary border-2 border-primary px-6 py-3 rounded-lg font-semibold transition-all duration-200 cursor-pointer hover:bg-primary hover:text-white;
+  }
+  
+  .card {
+    @apply bg-background rounded-xl p-6 shadow-md transition-all duration-200 cursor-pointer hover:shadow-lg hover:-translate-y-0.5;
+  }
+}
