@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:dist": "vite build --outDir dist",
+    "build:docs": "vite build --outDir docs",
+    "build:push": "node scripts/rebuild-on-push.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

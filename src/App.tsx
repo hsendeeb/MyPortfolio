@@ -79,7 +79,7 @@ const projects = [
     id: 1,
     title: "Tojjar",
     category: "Custom web app",
-    image: "public/logoTojjar.png",
+    image: "docs/logoTojjar.png",
     description: "A premium marketplace for cars trading focused on speed, clarity, and user experience.",
     link: "https://github.com/hsendeeb/tojjar",
   },
@@ -87,26 +87,10 @@ const projects = [
     id: 2,
     title: "AnsarEats",
     category: "Custom web app",
-    image: "public/ansareats-logo-v2.png",
+    image: "docs/ansareats-logo-v2.png",
     description: "A delivery application for food ordering and management.",
     link: "https://github.com/hsendeeb/AnsarEats",
-  },
-  {
-    id: 3,
-    title: "Project Gamma",
-    category: "Custom App",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800",
-    description: "A bespoke web application built for performance, flexibility, and polished client workflows.",
-    link: "https://example.com/project-gamma",
-  },
-  {
-    id: 4,
-    title: "Project Delta",
-    category: "WordPress",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-    description: "A content-rich WordPress build designed around SEO structure and editorial ease of use.",
-    link: "https://example.com/project-delta",
-  },
+  }
 ]
 
 export default function App() {
@@ -123,7 +107,7 @@ export default function App() {
             animate={{ opacity: 1, x: 0 }}
             className="text-xl font-heading font-bold tracking-tight"
           >
-            PORTFOLIO.
+            Hsen Deeb
           </motion.span>
           <div className="hidden md:flex space-x-8 text-sm font-medium">
             <a href="#services" className="hover:text-cta transition-colors">Services</a>
@@ -131,8 +115,8 @@ export default function App() {
             <a href="#contact" className="hover:text-cta transition-colors">Contact</a>
           </div>
           <div className="flex items-center space-x-4">
-            <a href="#" className="p-2 hover:bg-gray-100 rounded-full transition-colors"><Github size={20} /></a>
-            <a href="#" className="p-2 hover:bg-gray-100 rounded-full transition-colors"><Linkedin size={20} /></a>
+            <a href="https://github.com/hsendeeb" className="p-2 hover:bg-gray-100 rounded-full transition-colors"><Github size={20} /></a>
+            <a href="https://www.linkedin.com/in/hsendeeb/" className="p-2 hover:bg-gray-100 rounded-full transition-colors"><Linkedin size={20} /></a>
           </div>
         </div>
       </nav>
@@ -288,9 +272,9 @@ export default function App() {
           <div className="mb-12 flex flex-col items-center gap-6 text-center">
             <div className="mx-auto w-full max-w-5xl">
               <SparklesText
-                text="Featured Work"
-                className="mb-4 w-full text-center text-4xl font-heading font-bold tracking-tight md:text-5xl"
-                sparklesCount={12}
+                text="My projects"
+                className=" w-full text-center text-4xl font-heading font-bold tracking-tight md:text-5xl"
+                sparklesCount={6}
                 colors={{ first: "#2563EB", second: "#18181B" }}
               />
              
@@ -305,12 +289,10 @@ export default function App() {
       <section id="contact" className="py-20 bg-primary text-white px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8">Ready to start your project?</h2>
-          <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-gray-400">
-            Whether you need a full-scale Shopify store or a custom web app, I'm here to help you build it.
-          </p>
+          
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a href="mailto:hello@example.com" className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2">
-              <Mail size={20} /> hello@example.com
+            <a href="mailto:hsendeeb2@gmail.com" className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2">
+              <Mail size={20} /> hsendeeb2@gmail.com
             </a>
             <div className="flex gap-4">
                <a href="#" className="p-4 bg-secondary/50 rounded-full hover:bg-cta transition-colors"><Github size={24} /></a>
