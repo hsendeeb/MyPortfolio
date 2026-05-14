@@ -4,6 +4,7 @@ import AnimatedCardStack from '@/components/ui/animate-card-animation'
 import { DottedSurface } from '@/components/ui/dotted-surface'
 import { FallingPattern } from '@/components/ui/falling-pattern'
 import { HandWrittenTitle } from '@/components/ui/hand-writing-text'
+import FlipCardGallery from '@/components/ui/flip-card-gallery'
 import OrbitingSkills from '@/components/ui/orbiting-skills'
 import { ParticleTextEffect } from '@/components/ui/particle-text-effect'
 import { SparklesText } from '@/components/ui/sparkles-text'
@@ -99,6 +100,24 @@ const projects = [
     description: "A delivery application for food ordering and management.",
     link: "https://github.com/hsendeeb/AnsarEats",
   }
+]
+
+const stackCardItems = [
+  {
+    src: assetUrl("images.png"),
+    title: "Shopify Storefront",
+  
+  },
+  {
+    src: assetUrl("word.png"),
+    title: "WordPress Storefront",
+   
+  },
+  {
+    src: assetUrl("custom.png"),
+    title: "Custom Web App",
+   
+  },
 ]
 
 const timelineEntries = [
@@ -456,6 +475,12 @@ export default function App() {
           <AnimatedCardStack projects={projects} />
         </div>
       </section>
+
+      <FlipCardGallery
+        cards={stackCardItems}
+        title="Drag Card Stack"
+        subtitle="A Framer-style drag stack gallery. Edit the title and description in the card array at the top of App.tsx."
+      />
 
       <LearningTimeline />
 
