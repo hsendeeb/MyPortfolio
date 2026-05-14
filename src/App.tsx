@@ -1,19 +1,27 @@
-import { useState } from 'react'
-import { motion, AnimatePresence, LayoutGroup } from 'motion/react'
+import { useRef, useState } from 'react'
+import { motion, AnimatePresence, LayoutGroup, useScroll } from 'motion/react'
 import AnimatedCardStack from '@/components/ui/animate-card-animation'
 import { DottedSurface } from '@/components/ui/dotted-surface'
 import { FallingPattern } from '@/components/ui/falling-pattern'
 import { HandWrittenTitle } from '@/components/ui/hand-writing-text'
+import OrbitingSkills from '@/components/ui/orbiting-skills'
 import { ParticleTextEffect } from '@/components/ui/particle-text-effect'
 import { SparklesText } from '@/components/ui/sparkles-text'
 import { TextRotate } from '@/components/ui/text-rotate'
 import { 
   Globe, 
+  Briefcase,
+  BookOpen,
+  GraduationCap,
+  BadgeCheck,
+  Award,
   ShoppingBag, 
   Code2, 
   Download, 
   Mail, 
 } from 'lucide-react'
+
+const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`
 
 // Custom Brand Icons (since lucide-react removed them)
 const Github = ({ size = 24, className = "" }) => (
@@ -79,7 +87,7 @@ const projects = [
     id: 1,
     title: "Tojjar",
     category: "Custom web app",
-    image: "docs/logoTojjar.png",
+    image: assetUrl("logoTojjar.png"),
     description: "A premium marketplace for cars trading focused on speed, clarity, and user experience.",
     link: "https://github.com/hsendeeb/tojjar",
   },
@@ -87,11 +95,130 @@ const projects = [
     id: 2,
     title: "AnsarEats",
     category: "Custom web app",
-    image: "docs/ansareats-logo-v2.png",
+    image: assetUrl("ansareats-logo-v2.png"),
     description: "A delivery application for food ordering and management.",
     link: "https://github.com/hsendeeb/AnsarEats",
   }
 ]
+
+const timelineEntries = [
+  {
+    year: 'Foundation',
+    title: 'Learned at Sarafand High Institute',
+    description: 'Built the technical foundation that started the path into software and digital product work.',
+    icon: BookOpen,
+    tone: 'from-cyan-500 to-sky-500',
+  },
+  {
+    year: 'TS2',
+    title: 'Earned my TS2 degree',
+    description: 'Focused on the practical and academic skills that shaped my approach to structured learning.',
+    icon: GraduationCap,
+    tone: 'from-blue-500 to-indigo-500',
+  },
+  {
+    year: 'LT',
+    title: 'Earned my LT degree',
+    description: 'Advanced into deeper specialization and broader technical confidence.',
+    icon: Award,
+    tone: 'from-indigo-500 to-violet-500',
+  },
+  {
+    year: 'Internship',
+    title: 'Internship at XpertBot',
+    description: 'Gained real-world product experience by working inside a professional team environment.',
+    icon: Briefcase,
+    tone: 'from-violet-500 to-fuchsia-500',
+  },
+  {
+    year: 'Certified',
+    title: 'Got certified',
+    description: 'Validated the journey with certification and a stronger professional baseline.',
+    icon: BadgeCheck,
+    tone: 'from-fuchsia-500 to-rose-500',
+  },
+]
+
+function LearningTimeline() {
+  const timelineRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 0.85', 'end 0.2'],
+  })
+
+  return (
+    <section id="journey" className="relative overflow-hidden bg-background px-4 py-20 sm:px-6 lg:px-8">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.08),transparent_30%),linear-gradient(to_bottom,rgba(250,250,250,0.98),rgba(250,250,250,1))]" />
+      <div className="relative mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-14 max-w-4xl text-center"
+        >
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-cta">
+            Timeline
+          </p>
+          <h2 className="mb-4 text-3xl font-heading font-bold tracking-tight text-text md:text-5xl">
+            How I learned the craft
+          </h2>
+          <p className="text-secondary text-base leading-relaxed md:text-lg">
+            A scroll-driven journey from education to professional experience, built with an alternating timeline layout.
+          </p>
+        </motion.div>
+
+        <div ref={timelineRef} className="relative mx-auto max-w-6xl">
+          <div className="pointer-events-none absolute left-5 top-0 h-full w-px bg-gray-200 md:left-1/2 md:-translate-x-1/2" />
+          <motion.div
+            aria-hidden="true"
+            style={{ scaleY: scrollYProgress }}
+            className="pointer-events-none absolute left-5 top-0 h-full w-px origin-top bg-gradient-to-b from-cyan-500 via-blue-500 to-fuchsia-500 md:left-1/2 md:-translate-x-1/2"
+          />
+
+          <div className="space-y-10 md:space-y-16">
+            {timelineEntries.map((entry, index) => {
+              const Icon = entry.icon
+              const isLeft = index % 2 === 0
+
+              return (
+                <div
+                  key={entry.title}
+                  className="relative grid grid-cols-[2.5rem_1fr] gap-4 md:grid-cols-[1fr_5rem_1fr] md:items-center md:gap-6"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.55, ease: 'easeOut' }}
+                    className={`${isLeft ? 'md:col-start-1 md:justify-self-end md:text-right' : 'md:col-start-3 md:text-left'} col-start-2 w-full max-w-[34rem] md:max-w-[38rem]`}
+                  >
+                    <div className="rounded-[1.75rem] border border-gray-200 bg-white/90 p-7 shadow-[0_18px_50px_rgba(15,23,42,0.08)] backdrop-blur-sm md:p-8">
+                      <div className={`mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${entry.tone} px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white shadow-sm`}>
+                        <Icon size={14} />
+                        <span>{entry.year}</span>
+                      </div>
+                      <h3 className="mb-3 text-2xl font-heading font-bold tracking-tight text-text">
+                        {entry.title}
+                      </h3>
+                      <p className="text-sm leading-7 text-secondary md:text-base">
+                        {entry.description}
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  <div className="row-start-1 flex h-5 w-5 items-center justify-center justify-self-center rounded-full border-4 border-background bg-white shadow-md md:static md:col-start-2 md:top-auto md:h-6 md:w-6">
+                    <div className={`h-2.5 w-2.5 rounded-full bg-gradient-to-r ${entry.tone}`} />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function App() {
   const [isDownloadHovered, setIsDownloadHovered] = useState(false)
@@ -111,6 +238,7 @@ export default function App() {
           </motion.span>
           <div className="hidden md:flex space-x-8 text-sm font-medium">
             <a href="#services" className="hover:text-cta transition-colors">Services</a>
+            <a href="#skills" className="hover:text-cta transition-colors">Skills</a>
             <a href="#projects" className="hover:text-cta transition-colors">Projects</a>
             <a href="#contact" className="hover:text-cta transition-colors">Contact</a>
           </div>
@@ -194,7 +322,7 @@ export default function App() {
                 )}
               </AnimatePresence>
               <a
-                href="/husseindeebCV.docx"
+                href={assetUrl("husseindeebCV.docx")}
                 download="husseindeebCV.docx"
                 className="btn-primary relative z-10 flex items-center gap-2 group-hover:shadow-lg"
                 onFocus={() => {
@@ -206,9 +334,9 @@ export default function App() {
                 Download CV <Download size={18} className="transition-transform group-hover:translate-y-0.5" />
               </a>
             </div>
-            <button className="btn-secondary">
+            <a href="#projects" className="btn-secondary">
               View Projects
-            </button>
+            </a>
           </motion.div>
         </div>
       </section>
@@ -264,6 +392,50 @@ export default function App() {
         </div>
       </section>
 
+      <section id="skills" className="relative overflow-hidden bg-background px-4 py-20 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.08),transparent_30%),linear-gradient(to_bottom,rgba(250,250,250,0.98),rgba(250,250,250,1))]" />
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(320px,520px)] lg:gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5 }}
+              className="mx-auto w-full max-w-4xl text-center lg:mx-0 lg:text-left"
+            >
+              <h2 className="mb-4 text-3xl font-heading font-bold tracking-tight text-text md:text-4xl">
+                My Skills
+              </h2>
+              <p className="mb-8 text-secondary text-base leading-relaxed md:text-lg">
+                The stack I use to build polished interfaces, solid backend systems, and fast-moving client products.
+              </p>
+              <div className="grid gap-4 text-left sm:grid-cols-2">
+                {[
+                  "Responsive interfaces with Tailwind and JavaScript",
+                  "Laravel application architecture and delivery",
+                  "Livewire workflows for fast product iteration",
+                  "Filament admin panels and Git-based collaboration",
+                ].map((item) => (
+                  <div key={item} className="rounded-2xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
+                    <p className="text-sm leading-6 text-secondary">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6 }}
+              className="mx-auto flex w-full justify-center bg-transparent p-0 lg:max-w-[520px]"
+            >
+              <OrbitingSkills />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Projects Section */}
       <section id="projects" className="relative isolate overflow-hidden py-20 px-4 sm:px-6 lg:px-8">
         <DottedSurface className="z-0 opacity-100" />
@@ -284,6 +456,8 @@ export default function App() {
           <AnimatedCardStack projects={projects} />
         </div>
       </section>
+
+      <LearningTimeline />
 
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-primary text-white px-4 sm:px-6 lg:px-8">
