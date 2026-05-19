@@ -1,12 +1,13 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { motion, AnimatePresence, LayoutGroup, useScroll } from 'motion/react'
 import AnimatedCardStack from '@/components/ui/animate-card-animation'
 import { DottedSurface } from '@/components/ui/dotted-surface'
 import { FallingPattern } from '@/components/ui/falling-pattern'
-import { HandWrittenTitle } from '@/components/ui/hand-writing-text'
+import HireMeFlipCard from '@/components/ui/hire-me-flip-card'
 import FlipCardGallery from '@/components/ui/flip-card-gallery'
 import OrbitingSkills from '@/components/ui/orbiting-skills'
 import { ParticleTextEffect } from '@/components/ui/particle-text-effect'
+import { AsciiMouseTrail } from '@/components/ui/ascii-mouse-trail'
 import { SparklesText } from '@/components/ui/sparkles-text'
 import { TextRotate } from '@/components/ui/text-rotate'
 import { 
@@ -240,11 +241,10 @@ function LearningTimeline() {
 }
 
 export default function App() {
-  const [isDownloadHovered, setIsDownloadHovered] = useState(false)
-  const [downloadHoverCycle, setDownloadHoverCycle] = useState(0)
-
   return (
     <div className="min-h-screen bg-background text-text font-sans">
+      <AsciiMouseTrail className="fixed inset-0 z-20 mix-blend-screen opacity-75" />
+
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -269,7 +269,7 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden px-4 pt-32 pb-20 sm:px-6 lg:px-8">
+      <section id="home" className="relative overflow-hidden px-4 pt-32 pb-20 sm:px-6 lg:px-8">
         <div className="absolute inset-0">
           <FallingPattern
             className="h-full min-h-[42rem] [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_80%)]"
@@ -282,6 +282,21 @@ export default function App() {
         </div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.12),transparent_35%),linear-gradient(to_bottom,rgba(250,250,250,0.55),rgba(250,250,250,0.92))]" />
         <div className="relative max-w-7xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: 'easeOut' }}
+            className="mx-auto mb-8 flex justify-center"
+          >
+            <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white bg-white shadow-[0_18px_50px_rgba(15,23,42,0.16)] sm:h-32 sm:w-32 md:h-36 md:w-36">
+              <img
+                src={assetUrl("avatar.png")}
+                alt="Hsen Deeb avatar"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+          </motion.div>
+
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -294,7 +309,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-7xl font-heading font-extrabold mb-6 tracking-tight"
           >
-            Hi, I'm <span className="text-primary">Hsen deeb</span>
+            Hi, I'm <span className="text-primary">Hsen</span>
           </motion.h1>
           
           <div className="mb-10">
@@ -318,41 +333,13 @@ export default function App() {
             transition={{ delay: 0.2 }}
             className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-10"
           >
-            <div
-              className="group relative inline-flex"
-              onMouseEnter={() => {
-                setDownloadHoverCycle((value) => value + 1)
-                setIsDownloadHovered(true)
-              }}
-              onMouseLeave={() => setIsDownloadHovered(false)}
+            <a
+              href={assetUrl("husseindeebCV.docx")}
+              download="husseindeebCV.docx"
+              className="btn-primary flex items-center gap-2"
             >
-              <AnimatePresence>
-                {isDownloadHovered && (
-                  <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 z-0">
-                    <HandWrittenTitle
-                      key={downloadHoverCycle}
-                      hideText
-                      className="h-full max-w-none py-0"
-                      pathClassName="text-black"
-                      strokeWidth={16}
-                      pathData="M 1060 225 C 1130 345, 1055 485, 800 540 C 530 598, 215 560, 105 392 C 52 286, 103 132, 322 72 C 585 6, 968 58, 1060 225"
-                    />
-                  </div>
-                )}
-              </AnimatePresence>
-              <a
-                href={assetUrl("husseindeebCV.docx")}
-                download="husseindeebCV.docx"
-                className="btn-primary relative z-10 flex items-center gap-2 group-hover:shadow-lg"
-                onFocus={() => {
-                  setDownloadHoverCycle((value) => value + 1)
-                  setIsDownloadHovered(true)
-                }}
-                onBlur={() => setIsDownloadHovered(false)}
-              >
-                Download CV <Download size={18} className="transition-transform group-hover:translate-y-0.5" />
-              </a>
-            </div>
+              Download CV <Download size={18} />
+            </a>
             <a href="#projects" className="btn-secondary">
               View Projects
             </a>
@@ -478,11 +465,28 @@ export default function App() {
 
       <FlipCardGallery
         cards={stackCardItems}
-        title="Drag Card Stack"
-        subtitle="A Framer-style drag stack gallery. Edit the title and description in the card array at the top of App.tsx."
+        title="Services"
+        subtitle="Some of my services that i offer"
       />
 
       <LearningTimeline />
+      
+      <HireMeFlipCard
+        imageSrc={assetUrl("myphoto.jpg")}
+        summary="I build premium WordPress, Shopify, and custom web experiences with clean design, responsive layouts, smooth motion, and practical delivery."
+        skills={[
+          "WordPress + Shopify",
+          "React + TypeScript",
+          "Laravel + Livewire",
+        ]}
+        stats={[
+          { label: "Core", value: "UI + UX" },
+          { label: "Stack", value: "Full-stack" },
+          { label: "Output", value: "Production ready" },
+        ]}
+        ctaHref="mailto:hsendeeb2@gmail.com"
+        ctaLabel="Hire Me"
+      />
 
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-primary text-white px-4 sm:px-6 lg:px-8">
@@ -500,6 +504,7 @@ export default function App() {
           </div>
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="py-10 border-t border-gray-200 px-4 sm:px-6 lg:px-8">
